@@ -1,0 +1,174 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "training",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.13.2",
+      "toolsId": "aac689b3-58c2-40b2-b62d-6f469a4f6986"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/training/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Training-display": {
+          "semanticObject": "Training",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.122.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "training.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "TrainingList",
+          "target": "TrainingList"
+        },
+        {
+          "pattern": "Training({key}):?query:",
+          "name": "TrainingObjectPage",
+          "target": "TrainingObjectPage"
+        }
+      ],
+      "targets": {
+        "TrainingList": {
+          "type": "Component",
+          "id": "TrainingList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Training",
+              "variantManagement": "Page",
+              "navigation": {
+                "Training": {
+                  "detail": {
+                    "route": "TrainingObjectPage"
+                  }
+                }
+              },
+              "initialLoad": "Enabled",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "selectAll": true,
+                    "type": "ResponsiveTable"
+                  },
+                  "columns": {
+                    "DataField::date": {
+                      "width": "auto"
+                    },
+                    "DataField::muscles_code": {
+                      "width": "auto"
+                    },
+                    "DataField::weight": {
+                      "width": "auto"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "TrainingObjectPage": {
+          "type": "Component",
+          "id": "TrainingObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Training",
+              "content": {
+                "header": {
+                  "anchorBarVisible": true,
+                  "visible": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
